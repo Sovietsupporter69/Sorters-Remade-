@@ -16,7 +16,7 @@ namespace Sorters
                 List[i] = numb;
             }
             Console.WriteLine("What sorting method do you want?");
-            Console.WriteLine("1- Merge sort");
+            Console.WriteLine("1- Random sort");
             Console.WriteLine("2- Bubble sort");
             Console.WriteLine("3- Split sort");
             Console.WriteLine("4- Binary split sort");
@@ -25,7 +25,7 @@ namespace Sorters
             switch (Input)
             {
                 case 1:
-                    MergeSort();
+                    RandomSort();
                     break;
                 case 2:
                     BubbleSort();
@@ -43,9 +43,21 @@ namespace Sorters
             }
         }
 
-        static void MergeSort()
+        static void RandomSort()
         {
-            Console.WriteLine("Not made yet");
+            Sorted = false;
+            Temp = 0;
+            while (Sorted == false)
+            {
+                if (List[i - 1] > List[i])
+                {
+                    Temp = List[i - 1];
+                    List[i - 1] = List[i];
+                    List[i] = Temp;
+                }
+            }
+
+            Console.WriteLine("Sorted");
         }
 
         static void BubbleSort()
