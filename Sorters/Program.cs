@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Sorters
 {
@@ -8,6 +9,7 @@ namespace Sorters
         static bool Sorted = false;
         static int Temp = 0;
         static bool Change = false;
+        static int LoopCount = 0;
         static void Main(string[] args)
         {
             for (int i = 0; i < 400; i++)
@@ -18,8 +20,8 @@ namespace Sorters
             Console.WriteLine("What sorting method do you want?");
             Console.WriteLine("1- Random sort");
             Console.WriteLine("2- Bubble sort");
-            Console.WriteLine("3- Split sort");
-            Console.WriteLine("4- Binary split sort");
+            Console.WriteLine("3- Undecided");
+            Console.WriteLine("4- Binary sort");
             int Input = int.Parse(Console.ReadLine());
 
             switch (Input)
@@ -31,15 +33,14 @@ namespace Sorters
                     BubbleSort();
                     break;
                 case 3:
-                    SplitSort();
+                    Console.WriteLine("No");
                     break;
                 case 4:
-                    BinartSplitSort();
+                    BinarySort();
                     break;
                 default:
                     Console.WriteLine("Incorrect input");
                     break;
-
             }
         }
 
@@ -47,23 +48,38 @@ namespace Sorters
         {
             Sorted = false;
             Temp = 0;
+            LoopCount = 0;
             while (Sorted == false)
             {
-                if (List[i - 1] > List[i])
+                int rand = new Random().Next(1, 400);
+                if (List[rand - 1] > List[rand])
                 {
-                    Temp = List[i - 1];
-                    List[i - 1] = List[i];
-                    List[i] = Temp;
+                    Temp = List[rand - 1];
+                    List[rand - 1] = List[rand];
+                    List[rand] = Temp;
                 }
+
+                Sorted = true;
+                for (int i = 1; i < 400; i++)
+                {
+                    if (List[i - 1] > List[i])
+                    {
+                        Sorted = false;
+                        break;
+                    }
+                }
+                LoopCount++;
+                
             }
 
-            Console.WriteLine("Sorted");
+            Console.WriteLine("Sorted in "+LoopCount+" loops");
         }
 
         static void BubbleSort()
         {
             Sorted = false;
             Temp = 0;
+            LoopCount = 0;
             while (Sorted == false)
             {
                 Change = false;
@@ -81,17 +97,12 @@ namespace Sorters
                 {
                     Sorted = true;
                 }
+                LoopCount++;
             }
 
-            Console.WriteLine("Sorted");
+            Console.WriteLine("Sorted in "+LoopCount+" loops");
         }
-
-        static void SplitSort()
-        {
-            Console.WriteLine("Not made yet");
-        }
-
-        static void BinartSplitSort()
+        static void BinarySort()
         {
             Console.WriteLine("Not made yet");
         }
