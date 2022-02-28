@@ -11,6 +11,8 @@ namespace Sorters
         static int Temp = 0;
         static bool Change = false;
         static int LoopCount = 0;
+        static bool Dev = false;
+        static BinaryHold[] BinList = new BinaryHold[ListLength];
         static void Main(string[] args)
         {
             RemakeNumbers();
@@ -28,6 +30,7 @@ namespace Sorters
                 Console.WriteLine("new- remake number list");
                 Console.WriteLine("stop- end program");
                 string Input = Console.ReadLine();
+                Dev = false;
 
                 switch (Input)
                 {
@@ -48,6 +51,12 @@ namespace Sorters
                         break;
                     case "new":
                         RemakeNumbers();
+                        break;
+                    case "Dev":
+                        Console.WriteLine("Give a number");
+                        int convert = int.Parse(Console.ReadLine());
+                        Dev = true;
+                        Binary(convert);
                         break;
                     default:
                         Console.WriteLine("Incorrect input");
@@ -86,7 +95,6 @@ namespace Sorters
 
             Console.WriteLine("Sorted in "+LoopCount+" loops");
         }
-
         static void BubbleSort()
         {
             Sorted = false;
@@ -116,14 +124,15 @@ namespace Sorters
         }
         static void BinarySort()
         {
-            Console.WriteLine("Not made yet");
+
         }
+
 
         static void RemakeNumbers()
         {
             for (int i = 0; i < ListLength; i++)
             {
-                int numb = new Random().Next(0, 5000);
+                int numb = new Random().Next(0, 4096);
                 List[i] = numb;
             }
         }
@@ -136,8 +145,32 @@ namespace Sorters
                 int numb1 = new Random().Next(0, ListLength);
                 int numb2 = new Random().Next(0, ListLength);
                 Temp = List[numb1];
-                List[numb1] = List[numb2i];
+                List[numb1] = List[numb2];
                 List[numb2] = Temp;
+            }
+        }
+        static void Binaiser()
+        {
+            for (int x = 0; x < ListLength; x++)
+            {
+                int number = List[x];
+                for (int i = 11; i >= 0; i--)
+                {
+                    int power = (int)Math.Pow(2, i);
+                    if (number - power >= 0)
+                    {
+                        BinList[x].bin[i] = 1;
+                        number = number - power;
+                    }
+                    else if (number - power < 0)
+                    {
+                        BinList[x].bin[i] = 0;
+                    }
+                }
+                if (Dev == true)
+                {
+                    Console.WriteLine(BinList[x].bin);
+                }
             }
         }
     }
